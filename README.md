@@ -198,6 +198,71 @@ function append(value) {
 
 ```
 
+
+calculator.jsx
+```jsx
+import React, { useState } from 'react';
+import './index.css';
+
+const Calculator = () => {
+  const [display, setDisplay] = useState('');
+
+  const append = (value) => {
+    setDisplay(prev => prev + value);
+  };
+
+  const clearDisplay = () => {
+    setDisplay('');
+  };
+
+  const deleteLast = () => {
+    setDisplay(prev => prev.slice(0, -1));
+  };
+
+  const calculate = () => {
+    try {
+      setDisplay(eval(display).toString()); // ⚠️ Using eval is risky; use with caution.
+    } catch (error) {
+      setDisplay('Error');
+    }
+  };
+
+  return (
+    <div className="calculator">
+      <input type="text" value={display} disabled />
+
+      <div className="buttons">
+        <button onClick={clearDisplay}>C</button>
+        <button onClick={deleteLast}>DEL</button>
+        <button onClick={() => append('%')}>%</button>
+        <button onClick={() => append('/')}>/</button>
+
+        <button onClick={() => append('7')}>7</button>
+        <button onClick={() => append('8')}>8</button>
+        <button onClick={() => append('9')}>9</button>
+        <button onClick={() => append('*')}>*</button>
+
+        <button onClick={() => append('4')}>4</button>
+        <button onClick={() => append('5')}>5</button>
+        <button onClick={() => append('6')}>6</button>
+        <button onClick={() => append('-')}>-</button>
+
+        <button onClick={() => append('1')}>1</button>
+        <button onClick={() => append('2')}>2</button>
+        <button onClick={() => append('3')}>3</button>
+        <button onClick={() => append('+')}>+</button>
+
+        <button onClick={() => append('0')}>0</button>
+        <button onClick={() => append('.')}>.</button>
+        <button className="equal" onClick={calculate}>=</button>
+      </div>
+    </div>
+  );
+};
+
+export default Calculator;
+```
+
 ## OUTPUT
 
 
